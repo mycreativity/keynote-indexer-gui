@@ -6,8 +6,8 @@
 <div id="app">{{ message }}</div>
 
 <ul class="list-group">
-    <li class="list-group-item" v-model="newTodoText" v-for="item in results">
-        @{{ task}}
+    <li class="list-group-item" v-for="item in results">
+        @{{item}}
     </li>
 </ul>
 
