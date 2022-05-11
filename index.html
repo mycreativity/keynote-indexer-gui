@@ -1,7 +1,7 @@
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
 
-<button v-on:click="search()">SEARCH!</button>
+<button @click="search">SEARCH!</button>
 
 <div id="app">{{ message }}</div>
 
@@ -20,18 +20,21 @@
         message: 'Hello Vue!'
       }
     },
-    search() {
-        var vm = this;
-        
-        axios.post("https://prod-168.westeurope.logic.azure.com/workflows/767e7ab5bdde47cca7675c20bd880c9d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vf4djxh3qraDZfwO6r0dA41Fac9tToj29AL3t0L_pYg", { query: "Mulesoft" })
-        .then(function (response) {
-          console.log(response);
-            vm.results = response.data;
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-      //this.results = response.data;
+      
+    methods: {
+        search() {
+            var vm = this;
+
+            axios.post("https://prod-168.westeurope.logic.azure.com/workflows/767e7ab5bdde47cca7675c20bd880c9d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vf4djxh3qraDZfwO6r0dA41Fac9tToj29AL3t0L_pYg", { query: "Mulesoft" })
+            .then(function (response) {
+              console.log(response);
+                vm.results = response.data;
+            })
+            .catch(function (error) {
+              console.log(error);
+            });
+          //this.results = response.data;
+        }
     }
   }).mount('#app')
   
