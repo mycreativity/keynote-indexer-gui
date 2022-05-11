@@ -1,6 +1,15 @@
 <script src="https://unpkg.com/vue@3"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
+
+<button v-on:click="search()">SEARCH!</button>
 
 <div id="app">{{ message }}</div>
+
+<ul class="list-group">
+    <li class="list-group-item" v-model="newTodoText" v-for="item in results">
+        @{{ task}}
+    </li>
+</ul>
 
 <script>
   const { createApp } = Vue
@@ -12,4 +21,11 @@
       }
     }
   }).mount('#app')
+  
+  async search() {
+    // POST request using axios with async/await
+    const filter = { query: "Mulesoft" };
+    const response = await axios.post("https://prod-168.westeurope.logic.azure.com/workflows/767e7ab5bdde47cca7675c20bd880c9d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vf4djxh3qraDZfwO6r0dA41Fac9tToj29AL3t0L_pYg", filter);
+    this.results = response.data;
+  }
 </script>
