@@ -1,16 +1,24 @@
+<html>
+  <head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.27.2/axios.min.js"></script>
-
-
-<div id="app">{{ message }}
+  </head>
+  <body>
+  
+<div id="app">
+<input type="text" v-model="query" />
 
 <button v-on:click="search">SEARCH!</button>
-<ul class="list-group">
-    <li class="list-group-item" v-for="item in results">
-        <image src="@{{item.imageUrl}}" width="50"/>
-        @{{item.originalDocumentName}}
-    </li>
-</ul>
+  <ul class="list-group">
+      <li class="list-group-item" v-for="item in results">
+          <a :href="item.imageUrl" target="_blank">
+            <image :src="item.imageUrl" width="200" :alt='item.text'/>
+            {{item.originalDocumentName}}<br/>
+          </a>
+      </li>
+  </ul>
 </div>
 
 
@@ -22,15 +30,15 @@
     data() {
       return {
         results: [],
-        message: 'Hello Vue!'
+        query: ""
       }
     },
       
     methods: {
         search(event) {
             var vm = this;
-
-            axios.post("https://prod-168.westeurope.logic.azure.com/workflows/767e7ab5bdde47cca7675c20bd880c9d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vf4djxh3qraDZfwO6r0dA41Fac9tToj29AL3t0L_pYg", { query: "Mulesoft" })
+            
+            axios.post("https://prod-168.westeurope.logic.azure.com/workflows/767e7ab5bdde47cca7675c20bd880c9d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vf4djxh3qraDZfwO6r0dA41Fac9tToj29AL3t0L_pYg", { query: vm.query })
             .then(function (response) {
               console.log(response.data.value);
               
@@ -46,3 +54,8 @@
   
   
 </script>
+  </body>
+</html>
+
+
+
