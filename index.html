@@ -7,7 +7,8 @@
 <button v-on:click="search">SEARCH!</button>
 <ul class="list-group">
     <li class="list-group-item" v-for="item in results">
-        @{{item}}
+        <image src="@{{item.imageUrl}}" width="50"/>
+        @{{item.originalDocumentName}}
     </li>
 </ul>
 </div>
