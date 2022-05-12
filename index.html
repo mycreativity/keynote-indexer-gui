@@ -14,7 +14,7 @@
   <ul class="list-group">
       <li class="list-group-item" v-for="item in results">
           <a :href="item.imageUrl" target="_blank">
-            <image :src="item.imageUrl" width="200" :alt='item.text'/>
+            <image :src="item.imageUrl" class="img-fluid" :alt='item.text'/>
             {{item.originalDocumentName}}<br/>
           </a>
       </li>
