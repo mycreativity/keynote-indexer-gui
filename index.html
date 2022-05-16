@@ -8,17 +8,29 @@
   <body>
   
 <div id="app">
-<input type="text" v-model="query" />
 
-<button v-on:click="search">SEARCH!</button>
-  <ul class="list-group">
-      <li class="list-group-item" v-for="item in results">
-          <a :href="item.imageUrl" target="_blank">
-            <image :src="item.imageUrl" class="img-fluid" :alt='item.text'/>
-            {{item.originalDocumentName}}<br/>
-          </a>
-      </li>
-  </ul>
+  <div class="content">
+    <input type="text" 
+      class="form-control"
+      v-model="query" 
+      @keyup.enter="search" 
+      placeholder="Type your document query here"/>
+  </div>
+  
+  <div class="content">
+      <div class="row" v-for="item in results">
+          <div class="col-6">
+            <div class="card">
+              <image :src="item.imageUrl" class="img-fluid" :alt='item.text'/>
+              <div class="card-body">
+                <a :href="item.imageUrl" target="_blank">
+                  <p class="card-text">{{item.originalDocumentName}}</p>
+                 </a>
+              </div>
+            </div>
+          </div>
+      </div>
+  </div>
 </div>
 
 
@@ -47,7 +59,7 @@
             .catch(function (error) {
               console.log(error);
             });
-          //this.results = response.data;
+          	event.stopPropagation();
         }
     }
   }).mount('#app')
