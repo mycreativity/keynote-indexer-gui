@@ -36,13 +36,13 @@
       placeholder="Type your document query here"/>
   </div>
   
-  <div class="content">
+  <div class="container-fluid">
       <div class="row">
-          <div class="col-6" v-for="item in results">
+          <div class="col-12 col-sm-6" v-for="item in results">
             <div class="slide p-1">
-              <image :src="item.imageUrl" class="img-fluid" :alt='item.text'/>
+              <image :src="item._source.imageUrl" class="img-fluid" :alt='item.text'/>
               <div class="slide-text">
-                  <p class="card-text my-card-text">{{item.originalDocumentName}}</p>
+                  <p class="card-text my-card-text">{{item._source.originalDocumentName}}</p>
               </div>
             </div>
           </div>
@@ -68,9 +68,9 @@
             var vm = this;
             axios.post("https://prod-168.westeurope.logic.azure.com/workflows/767e7ab5bdde47cca7675c20bd880c9d/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=vf4djxh3qraDZfwO6r0dA41Fac9tToj29AL3t0L_pYg", { query: vm.query })
             .then(function (response) {
-              console.log(response.data.value);
+              console.log(response.data.hits);
               
-                vm.results = response.data.value;
+                vm.results = response.data.hits;
             })
             .catch(function (error) {
               console.log(error);
